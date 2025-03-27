@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">My Cart</h2>
+
+    {% if cart_items %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{item.product.name}}</td>
+                <td>
+                    <form action="" method="post" class="d-flex">
+                        <input type="number" name="quantity" value="1" class="form-control" min="1">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Update</button>
+                    </form>
+                </td>
+                <td>${{item.product.price}}</td>
+                <td>$Total</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Display Total Amount -->
+    <div class="d-flex justify-content-end">
+        <h4>Total Amount: $<span id="total-amount">100</span></h4>
+    </div>
+
+    <!-- Checkout Button -->
+    <div class="d-flex justify-content-end mt-3">
+        <form method="get" action="">
+            <button type="submit" class="btn btn-success">Checkout</button>
+        </form>
+    </div>
+
+    {% else %}
+    <div id="empty-cart-message" class="d-none">
+        <p>Cart is Empty</p>
+        <a href="" class="btn btn-primary">Proceed with Shopping</a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Registration{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-center mt-3">
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p> This User is already signed Up. Go to <a href="{% url 'users:login' %}">Login</a></p>
+    <button type="submit" class="btn btn-success">Sign Up</button>
+    <a href="% url 'shop:index" class="btn btn-danger">Cancel</a>
+  </form>
+</div>
+
+{% endblock %}

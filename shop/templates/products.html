@@ -1,0 +1,35 @@
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" class="card-img-top img-thumbnail" alt="Product Image">
+        {% else %}
+          <img src="/static/images/default.jpg" class="card-img-top img-thumbnail" alt="No Image Available">
+        {% endif %}
+
+        <div class="card-body">
+          <h5 class="card-title"><strong>Name:</strong> {{ product.name }}</h5>
+          <p class="card-text"><strong>Price:</strong> ${{ product.price }}</p>
+          <p class="card-text"><strong>Category:</strong>
+            {% for cat in product.category.all %}
+              <span class="badge text-bg-secondary">{{ cat.name }}</span>
+            {% endfor %}
+          </p>
+          <p class="card-text"><strong>Description:</strong> {{ product.description|truncatewords:20 }}</p>
+        </div>
+
+        <div class="card-footer text-center">
+          <a href="" class="btn btn-primary">Add to Cart</a>
+          <a href="{% url 'shop:details' product.id %}" class="btn btn-primary">Go To Detail</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+
+    <!-- Sidebar for Category Filter -->
+    <div class="col-md-3">
+      {% include 'category_filters.html' %}
+    </div>
+
+    <!-- Main Product List Section -->
+    <div class="col-md-9">
+      <form method="get" action="" class="mb-4">
+        <div class="input-group">
+          <input type="text" class="form-control" name="query" placeholder="Search"
+                 value="{% if request.GET.query %}{{ request.GET.query }}{% endif %}">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </form>
+
+      <!-- Include pagination -->
+      {% include 'paginator.html' %}
+
+      <div class="row">
+        {% include 'products.html' %}
+      </div>
+
+      <!-- Pagination Section -->
+      <ul class="pagination justify-content-center mt-4">
+        {% if products.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ products.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">Previous</a>
+          </li>
+        {% endif %}
+
+        {% for num in products.paginator.page_range %}
+          <li class="page-item {% if products.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">{{ num }}</a>
+          </li>
+        {% endfor %}
+
+        {% if products.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ products.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
