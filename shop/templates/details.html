@@ -25,7 +25,7 @@
 
             <p><strong>Categories:</strong> {% for cat in product.category.all %} {{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
             <div class="d-grid gap-2 mt-4">
-                <a href="#" class="btn btn-lg btn-primary">Add to Cart</a>
+                <a href="{% url 'orders:add_cart_item' product.id %}" class="btn btn-lg btn-primary">Add to Cart</a>
             </div>
         </div>
     </div>
